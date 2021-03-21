@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace ExampleApi.Models
+namespace RunProcApi.Models
 {
-    public class ExampleContext : DbContext
+    public class RunProcContext : DbContext
     {
-        public ExampleContext(DbContextOptions<ExampleContext> options)
+        public RunProcContext(DbContextOptions<RunProcContext> options)
             : base(options)
         {
         }
 
-        public DbSet<ExampleItem> ExampleItems { get; set; }
+        public DbSet<RunProcItem> RunProcItems { get; set; }
     }
 }

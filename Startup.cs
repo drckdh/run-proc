@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using ExampleApi.Models;
+using RunProcApi.Models;
 
-namespace ExampleApi
+namespace RunProcApi
 {
     public class Startup
     {
@@ -21,11 +21,11 @@ namespace ExampleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ExampleContext>(opt => opt.UseInMemoryDatabase("ExampleList"));
+            services.AddDbContext<RunProcContext>(opt => opt.UseInMemoryDatabase("RunProcList"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExampleApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RunProcApi", Version = "v1" });
             });
         }
 
@@ -36,7 +36,7 @@ namespace ExampleApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampleApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RunProcApi v1"));
             }
 
             app.UseHttpsRedirection();

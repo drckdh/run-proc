@@ -1,6 +1,6 @@
-namespace ExampleApi.Models
+namespace RunProcApi.Models
 {
-    public class ExampleItem
+    public class RunProcItem
     {
         public long Id { get; set; }
         public string Name { get; set; }

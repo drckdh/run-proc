@@ -5,53 +5,53 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ExampleApi.Models;
+using RunProcApi.Models;
 
-namespace ExampleApi.Controllers
+namespace RunProcApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExampleItemsController : ControllerBase
+    public class RunProcItemsController : ControllerBase
     {
-        private readonly ExampleContext _context;
+        private readonly RunProcContext _context;
 
-        public ExampleItemsController(ExampleContext context)
+        public RunProcItemsController(RunProcContext context)
         {
             _context = context;
         }
 
-        // GET: api/ExampleItems
+        // GET: api/RunProcItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExampleItem>>> GetExampleItems()
+        public async Task<ActionResult<IEnumerable<RunProcItem>>> GetRunProcItems()
         {
-            return await _context.ExampleItems.ToListAsync();
+            return await _context.RunProcItems.ToListAsync();
         }
 
-        // GET: api/ExampleItems/5
+        // GET: api/RunProcItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExampleItem>> GetExampleItem(long id)
+        public async Task<ActionResult<RunProcItem>> GetRunProcItem(long id)
         {
-            var ExampleItem = await _context.ExampleItems.FindAsync(id);
+            var RunProcItem = await _context.RunProcItems.FindAsync(id);
 
-            if (ExampleItem == null)
+            if (RunProcItem == null)
             {
                 return NotFound();
             }
 
-            return ExampleItem;
+            return RunProcItem;
         }
 
-        // PUT: api/ExampleItems/5
+        // PUT: api/RunProcItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExampleItem(long id, ExampleItem ExampleItem)
+        public async Task<IActionResult> PutRunProcItem(long id, RunProcItem RunProcItem)
         {
-            if (id != ExampleItem.Id)
+            if (id != RunProcItem.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(ExampleItem).State = EntityState.Modified;
+            _context.Entry(RunProcItem).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace ExampleApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ExampleItemExists(id))
+                if (!RunProcItemExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +72,37 @@ namespace ExampleApi.Controllers
             return NoContent();
         }
 
-        // POST: api/ExampleItems
+        // POST: api/RunProcItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExampleItem>> PostExampleItem(ExampleItem ExampleItem)
+        public async Task<ActionResult<RunProcItem>> PostRunProcItem(RunProcItem RunProcItem)
         {
-            _context.ExampleItems.Add(ExampleItem);
+            _context.RunProcItems.Add(RunProcItem);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetExampleItem", new { id = ExampleItem.Id }, ExampleItem);
-            return CreatedAtAction(nameof(GetExampleItem), new { id = ExampleItem.Id }, ExampleItem);
+            //return CreatedAtAction("GetRunProcItem", new { id = RunProcItem.Id }, RunProcItem);
+            return CreatedAtAction(nameof(GetRunProcItem), new { id = RunProcItem.Id }, RunProcItem);
         }
 
-        // DELETE: api/ExampleItems/5
+        // DELETE: api/RunProcItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExampleItem(long id)
+        public async Task<IActionResult> DeleteRunProcItem(long id)
         {
-            var ExampleItem = await _context.ExampleItems.FindAsync(id);
-            if (ExampleItem == null)
+            var RunProcItem = await _context.RunProcItems.FindAsync(id);
+            if (RunProcItem == null)
             {
                 return NotFound();
             }
 
-            _context.ExampleItems.Remove(ExampleItem);
+            _context.RunProcItems.Remove(RunProcItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ExampleItemExists(long id)
+        private bool RunProcItemExists(long id)
         {
-            return _context.ExampleItems.Any(e => e.Id == id);
+            return _context.RunProcItems.Any(e => e.Id == id);
         }
     }
 }
