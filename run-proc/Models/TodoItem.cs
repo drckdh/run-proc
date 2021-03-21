@@ -1,6 +1,6 @@
-namespace TodoApi.Models
+namespace ExampleApi.Models
 {
-    public class TodoItem
+    public class ExampleItem
     {
         public long Id { get; set; }
         public string Name { get; set; }

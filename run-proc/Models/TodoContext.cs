@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TodoApi.Models
+namespace ExampleApi.Models
 {
-    public class TodoContext : DbContext
+    public class ExampleContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options)
+        public ExampleContext(DbContextOptions<ExampleContext> options)
             : base(options)
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<ExampleItem> ExampleItems { get; set; }
     }
 }
