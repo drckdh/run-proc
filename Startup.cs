@@ -4,8 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using RunProcApi.Models;
+//using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;  
+using RunProcApi.Services;
 
 namespace RunProcApi
 {
@@ -21,12 +22,19 @@ namespace RunProcApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RunProcContext>(opt => opt.UseInMemoryDatabase("RunProcList"));
-            services.AddControllers();
+
+            services.AddDbContext<DataContext.AppContext>(options =>  
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );  
+            //Register dapper in scope    
+            services.AddScoped<IDapper, Dapperr>();   
+
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RunProcApi", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +57,8 @@ namespace RunProcApi
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
