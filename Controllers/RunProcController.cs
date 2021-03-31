@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
   
 namespace RunProcApi.Controllers  
 {  
-    [Route("api/[controller]")]  
+    [Route("sql/api/{procName}")]  
     [ApiController]  
     public class RunProcController : ControllerBase  
     {  
@@ -66,22 +66,24 @@ namespace RunProcApi.Controllers
             return updateArticle;  
         }  
 
-        [HttpPost(nameof(Test))]  
-        public List<dynamic> Test( JObject jsonInput)  
+        [HttpPost("Query")]
+        public List<dynamic> Query( JObject jsonInput, string procName)  
         {  
-            dynamic input = jsonInput; 
-            string count = input.count;
-            string value = input.value;
             var dbPara = new DynamicParameters();  
-            dbPara.Add("count", count);  
-            dbPara.Add("value", value, DbType.String);  
-  
-            var result = 
-                _dapper.GetDbconnection().Query(
-                    "[dbo].[TEST_PROC]",  
-                    dbPara,  
-                    commandType: CommandType.StoredProcedure
-                    ).ToList();
+            string name = "";
+            string value = "";
+            foreach (JProperty property in jsonInput.Properties())
+            {
+                name = property.Name;
+                 value = (string)property.Value;
+                dbPara.Add(name, value, DbType.String);  
+            }
+
+            List<dynamic> result = _dapper.GetDbconnection().Query(
+                "[dbo].[" + procName + "]",  
+                dbPara,  
+                commandType: CommandType.StoredProcedure
+                ).ToList();
             
             return result;
         }  
